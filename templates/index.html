@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+h1 {
+    text-align: center;
+    margin: 100px auto;
+    color: #e3e3e3;
+    font-family: sans-serif;}
+#valor_tarjeta {
+    color:red;
+    border: 1px dotted black;
+}
+    </style>
+    <title>Tarjeta</title>
+</head>
+<body>
+    <h1>Numero de tarjeta: <span id='valor_tarjeta'>xxxxxx</span></h1>
+
+    <script>
+function actualizaTarjeta(noTarjeta){
+    document.getElementById('valor_tarjeta').innerHTML = noTarjeta;
+    }
+
+
+// Programamos el sent event de el switch
+var switchSource = new EventSource("http://localhost:5000/_switch");
+switchSource.onmessage = function(e) {
+    actualizaTarjeta(e.data);
+}
+
+
+// Aqui empieza el switch con el primer valor que manda flask
+actualizaTarjeta({{ tarjeta }});
+
+    </script>
+
+</body>
+</html>
